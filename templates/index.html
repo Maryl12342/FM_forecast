@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Arrival Forecast</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .line-chart {
+            margin-top: 20px;
+        }
+        .line-chart img {
+            max-width: 100%;
+            height: auto;
+        }
+        .form-container {
+            margin-bottom: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input, select {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Train Arrival Forecast</h1>
+    <div class="form-container">
+        <form method="post">
+            <label for="day_of_ride">Day of Ride (YYYY-MM-DD):</label>
+            <input type="date" id="day_of_ride" name="day_of_ride" required>
+            <br><br>
+            <label for="train_number">Train Number:</label>
+            <select type="number" id="train_number" name="train_number" required>
+                 <option value="27">27</option>
+            </select>
+            <br><br>
+            <label for="station_short_code">Station Short Code:</label>
+            <select id="station_short_code" name="station_short_code" required>
+                <option value="TPE">TPE</option>
+            </select>
+            <br><br>
+            <label for="timetable_type">Timetable Type:</label>
+            <select id="timetable_type" name="timetable_type" required>
+                <option value="ARRIVAL">Arrival</option>
+            </select>
+            <br><br>
+            <button type="submit">Get Forecast</button>
+        </form>
+    </div>
+
+    {% if forecasted_time %}
+        <div class="result">
+            <h2>Forecasted Time: {{ forecasted_time }}</h2>
+            <h2>Scheduled Time: {{ scheduled_time }}</h2>
+        </div>
+    {% elif error_message %}
+        <div class="result">
+            <h2>{{ error_message }}</h2>
+        </div>
+    {% endif %}
+
+    {% if line_chart_data %}
+        <div class="line-chart">
+            <h2>Line Chart of Historical Delays</h2>
+            <img src="data:image/png;base64,{{ line_chart_data }}" alt="Line Chart of Delays">
+        </div>
+    {% endif %}
+</body>
+</html>
