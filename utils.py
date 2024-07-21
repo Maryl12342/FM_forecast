@@ -27,7 +27,7 @@ def connect_to_postgres():
     conn = psycopg2.connect(
         dbname="trains",
         user="postgres",
-        password="password123",
+        password="****",
         host="localhost",
         port="5432"
     )
